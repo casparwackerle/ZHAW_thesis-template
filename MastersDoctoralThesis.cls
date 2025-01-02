@@ -46,7 +46,6 @@
 \booltrue{hyperrefsupport}
 \newbool{headsepline}
 \newbool{consistentlayout}
-\newbool{helveticafont}
 
 \DeclareOption{nohyperref}{\boolfalse{hyperrefsupport}}
 \DeclareOption{nolistspacing}{\booltrue{nolistspace}}
@@ -56,7 +55,6 @@
 \DeclareOption{parskip}{\booltrue{parskip}}
 \DeclareOption{headsepline}{\booltrue{headsepline}}
 \DeclareOption{consistentlayout}{\booltrue{consistentlayout}}
-\DeclareOption{helveticafont}{\booltrue{helveticafont}}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{\baseclass}}
 
 \ProcessOptions\relax
@@ -242,7 +240,6 @@
 \NewDocumentCommand{\studyprogram}{m}{\newcommand{\studyprog}{#1}}
 \NewDocumentCommand{\studyprogramlink}{m}{\newcommand{\studyproglink}{#1}}
 \NewDocumentCommand{\university}{m}{\newcommand{\univname}{#1}}
-\NewDocumentCommand{\unversityabbr}{m}{\newcommand{\univabbr}{#1}}
 \NewDocumentCommand{\universitygerman}{m}{\newcommand{\univnameger}{#1}}
 \NewDocumentCommand{\department}{m}{\newcommand{\deptname}{#1}}
 \NewDocumentCommand{\institute}{m}{\newcommand{\instname}{#1}}
@@ -272,18 +269,6 @@
 \setcounter{tocdepth}{3} % The depth to which the document sections are printed to the table of contents
 \ProvideDocumentCommand{\addchaptertocentry}{ m }{%
     \addcontentsline{toc}{chapter}{#1}%
-}
-
-%----------------------------------------------------------------------------------------
-%   FONT
-%----------------------------------------------------------------------------------------
-
-\ifbool{helveticafont}{
-    \RequirePackage{helvet}
-    \renewcommand\familydefault{\sfdefault} 
-    \usepackage[T1]{fontenc}
-}{
-    % nothing
 }
 
 %----------------------------------------------------------------------------------------
@@ -322,20 +307,6 @@
 %----------------------------------------------------------------------------------------
 
 \RequirePackage[markcase=used]{scrlayer-scrpage}
-% uncomment if you want a long footer
-%------------------------------------------------
-% \providepairofpagestyles{thesisSimple}{%
-%     \clearpairofpagestyles%
-%     \automark[chapter]{chapter}
-%     \ihead{\headmark}% Inner header
-%     \ohead[\pagemark]{\pagemark}% Outer header
-%     \ifoot{\number\year, \univabbr, \instname}% Inner footer
-%     \ofoot{\shorttitle}% Outer footer
-% }
-% % \ifoot{}% Inner footer
-% % \ofoot{}% Outer footer
-%------------------------------------------------
-% comment if you want a long footer
 \providepairofpagestyles{thesisSimple}{%
     \clearpairofpagestyles%
     \automark[chapter]{chapter}
@@ -344,7 +315,6 @@
 }
 \ifoot{}% Inner footer
 \ofoot{}% Outer footer
-%------------------------------------------------
 \pagestyle{thesisSimple}
 \providepairofpagestyles[thesisSimple]{thesis}{%
     \automark*[section]{}%
@@ -402,17 +372,10 @@ KOMA-script documentation for details.}]{fancyhdr}
 \DeclareDocumentCommand{\abstracttitlefont}{}{}
 \newcommand{\byname}{by}
 \newcommand{\vonname}{von}
+\newcommand{\abstractname}{Abstract}
+\newcommand{\extraabstractname}{Zusammenfassung}
 \providecaptionname{german,ngerman,austrian,naustrian}{\byname}{von}
 \providecaptionname{american,australian,british,canadian,english,newzealand,UKenglish,USenglish}{\byname}{by}
-
-\newcommand{\abstractname}{Abstract} % English abstract
-\newcommand{\extraabstractname}{Zusammenfassung} % German Zusammenfassung as extra abstract
-% Redefine the abstract name to always be in English
-\addto\captionsngerman{\renewcommand{\abstractname}{Abstract}}
-\addto\captionsgerman{\renewcommand{\abstractname}{Abstract}}
-\addto\captionsaustrian{\renewcommand{\abstractname}{Abstract}}
-\addto\captionsnaustrian{\renewcommand{\abstractname}{Abstract}}
-
 \ifbool{consistentlayout}{
     \DeclareDocumentEnvironment{abstract}{ O{} }{%
         \addchap*{\abstractname}%
@@ -480,6 +443,7 @@ KOMA-script documentation for details.}]{fancyhdr}
         \vfill\null
     }
 }
+
 %----------------------------------------------------------------------------------------
 %   ACKNOWLEDGEMENTS PAGE DESIGN
 %----------------------------------------------------------------------------------------
